@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   count_alpha.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yijhuang <yijhuang@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/13 19:08:16 by yijhuang          #+#    #+#             */
-/*   Updated: 2019/09/13 19:14:26 by yijhuang         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdio.h>
 
 /*
@@ -20,12 +8,50 @@
 
 void count(char *str)
 {
-    
+    int i;
+    int alp_arr[26] = {0};
+    int first;
+
+    i = 0;
+    first = 1;
+    while (str[i])
+    {
+        if (str[i] >= 'a' && str[i] <= 'z')
+            {
+                alp_arr[str[i] - 'a'] = alp_arr[str[i] - 'a'] + 1;
+            }
+        if (str[i] >= 'A' && str[i] <= 'Z')
+            {
+                alp_arr[str[i] - 'A'] = alp_arr[str[i] - 'A'] + 1;
+            }
+        i++;
+    }
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] >= 'a' && str[i] <= 'z' && alp_arr[str[i] - 'a'] != 0)
+        {
+            if (!first)
+                printf(", ");
+            printf("%d%c", alp_arr[str[i] - 'a'], str[i]);
+            first = 0;
+            alp_arr[str[i] - 'a'] = 0;
+        }
+        if (str[i] >= 'A' && str[i] <= 'Z' && alp_arr[str[i] - 'A'] != 0)
+        {
+            if (!first)
+                printf(", ");
+            printf("%d%c", alp_arr[str[i] - 'A'], str[i] - 'A' + 'a');
+            first = 0;
+            alp_arr[str[i] - 'A'] = 0;
+        }
+        i++;
+    }
 }
 
 int main(int ac, char **av)
 {
-    if (ac == 2)
+    if(ac == 2)
         count(av[1]);
     printf("\n");
 }
